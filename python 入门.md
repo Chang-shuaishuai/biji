@@ -1124,8 +1124,8 @@ for j in name_list:
 name_list = [['Tom', 'Lily', 'Rose'],
              ['小明', '小红', '小绿'],
              ['zhngsan', 'lisi', 'wangwu']]
-print(name_list[0])
-print(name_list[0][1])
+print(name_list[0])  # ['Tom', 'Lily', 'Rose']
+print(name_list[0][1])  # Lily
 ```
 
 
@@ -1139,16 +1139,21 @@ print(name_list[0][1])
 元组特点： 定义元组使用小括号，且逗号隔开各个数据，数据可以是不同的数据类型
 
 ```python
-name_list = [['Tom', 'Lily', 'Rose'],
-             ['小明', '小红', '小绿'],
-             ['zhngsan', 'lisi', 'wangwu']]
-print(name_list[0])
-print(name_list[0][1])
+# 多个数据元组
+t1 = (10, 20, 30)
+print(type(t1))
+# 单个数据的元组
+t2 = (10,)
+print(t2)
+# 如果单个数据的元组不加逗号
+t3 = (10)
+print(t3)
+
 ```
 
 ![image-20210118170559790](python 入门.assets/image-20210118170559790.png)
 
-> 注意： 如果定义的元组只有一个数据，那么这个数据后面也好添加逗号，否则数据类型为唯一的这个数据的数据类型
+> 注意： 如果定义的元组只有一个数据，那么这个数据后面也要添加逗号，否则数据类型为唯一的这个数据的数据类型
 
 #### 元组的常见操作
 
@@ -1210,9 +1215,385 @@ print(name_list[0][1])
 
 * 各个键值对之间用逗号隔开
 
+
+```python
+# 有数据的字典： name的值Tom，age的值是20，gender的值是男
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+print(dict1)
+print(type(dict1))
+
+# 创建空字典
+dict2 = {}
+print(type(dict2))
+
+dict3 = dict()
+print(type(dict3))
+
+```
+
+![image-20210119152659126](python 入门.assets/image-20210119152659126.png)
+
+
+
+#### 字典的常见操作
+
+##### 增
+
+写法： `字典序列[key] = 值`
+
+> 注意：如果key存在则修改这个key对应的值；如果key不存在则新增此键值对
+
+```python
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+
+dict1['name'] = 'Rose'
+print(dict1)
+dict1['id'] = 110
+print(dict1)
+
+```
+
+![image-20210119153325853](python 入门.assets/image-20210119153325853.png)
+
+##### 删
+
+del()/del: 删除字典或删除字典中指定键值对
+
+clear():  清空字典
+
+```python
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+
+# del
+# del(dict1)
+# del dict1
+# print(dict1)  #  name 'dict1' is not defined
+# del dict1['name']
+# print(dict1)  # {'age': 20, 'gender': '男'}
+# del dict1['names']  # KeyError: 'names'
+
+# clear()
+dict1.clear()
+print(dict1)  # {}
+
+```
+
+##### 改
+
+写法：`字典序列[key] = 值`
+
+> 注意：如果key存在则修改这个key对应的值；如果key不存在则新增此键值对
+
+##### 查
+
+* key 值查找
+
+```python
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+print(dict1['name'])  # Tom
+print(dict1['id'])  # KeyError: 'id'
+
+```
+
+> 如果当前查找的key存在，则返回对应的值；否则则报错
+
+* get()
+
+  语法：
+
+  ```python
+  字典序列，get(key, 默认值)
+  ```
+
+  > 注意：如果当前查找的key不存在则返回第二个参数（默认值），如果省略第二个参数，则返回None
+
+* keys()
+* values()
+* items()
+
+```python
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+
+# get()
+print(dict1.get('name'))
+print(dict1.get('names'))  # 如果key不存在，返回None
+print(dict1.get('names', 'Lily'))  # 返回默认值Lily
+
+# keys()  # 返回的对象是一个可以迭代的对象即可以用for循环遍历的对象
+print(dict1.keys())  # 查找字典中所有的key
+
+# values()  返回一个可迭代的对象
+print(dict1.values())  # 查找字典中所有的value
+
+# items(): 返回一个可迭代对象，返回所有键值对，每个键值对是一个元组，元组数据1是字典的数据，元组数据2是字典key对应的值
+print(dict1.items())
+
+
+```
+
+![image-20210119161334940](python 入门.assets/image-20210119161334940.png)
+
+#### 字典的循环遍历
+
+```python
+dict1 = {'name': 'Tom', 'age': 20, 'gender': '男'}
+
+# 遍历字典中的key
+for key in dict1.keys():
+    print(key)
+
+print('---------------------------')
+
+# 遍历字典的value
+for value in dict1.values():
+    print(value)
+
+print('---------------------------')
+
+# 遍历字典的元素
+for item in dict1.items():
+    print(item)
+    
+print('---------------------------')
+
+#遍历字典的键值对（将得到的数据进行拆包动作）
+for key, value in dict1.items():
+    #  dict1.items()返回的迭代对象内部是一个元组，
+    # key, value in dict1.items(）
+    # 意味着将元组的第一个数据存放到第一个零时变量key中，第二个数据存放到第二个零时变量value中
+    # 把元组数据进行分离，这个动作就是所谓的拆包动作
+    print(f'{key} = {value}')
+
+```
+
+![image-20210119163854521](python 入门.assets/image-20210119163854521.png)
+
+
+
+### 集合
+
+#### 创建集合
+
+创建集合使用`{}` 或`set()`, 但是如果要创建空集合只能使用`set()`，因为 `{}` 用来创建空字典
+
+```python
+# 创建有数据的集合
+s1 = {10, 20, 30, 40, 50}
+print(s1)  # 集合没有顺序，所以不支持下标
+
+s2 = {10, 30, 20, 40, 30, 20}
+print(s2)  # 集合数据具有去重功能
+
+s3 = set('abcdefg')
+print(s3)
+
+# 创建空集合
+s4 = set()
+print(s4)
+print(type(s4))
+
+s5 = {}
+print(type(s5))
+
+```
+
+![image-20210119165355925](python 入门.assets/image-20210119165355925.png)
+
+
+
+#### 集合常见操作方法
+
+##### 增加数据
+
+* add(): 增加一个单一数据到集合中来
+
+  ```python
+  s1 = {10, 20}
+  # 集合是可变类型
+  # add()
+  s1.add(100)
+  print(s1)
   
+  # 集合有着去重功能，如果追加的数据是集合已有数据，则什么事都不做
+  s1.add(100)
+  print(s1)
+  
+  s1.add([10, 20, 30]) # add() 只能加单一数据，如果追加一个序列会报错
+  print(s1)
+  
+  
+  ```
+
+  ![image-20210119170443063](python 入门.assets/image-20210119170443063.png)
+
+* update(): 追加的数据是序列
+
+  ```python
+  s1 = {10, 20}
+  
+  # update(): 增加的数据是序列
+  s1.update([10, 20, 30, 40, 50])
+  print(s1)
+  
+  s1.update(100)  # update 追加的是一个数据序列，如果追加单一数据会报错
+  print(s1)
+  ```
+
+  ![image-20210119170830113](python 入门.assets/image-20210119170830113.png)
 
 
+
+##### 删除数据
+
+* remove(): 删除集合中的指定数据，如果数据不存在则报错
+* discard(): 删除集合中的指定数据，如果数据不存在也不会报错
+* pop(): 随机删除集合中的某个数据，返回这个数据
+
+```python
+s1 = {10, 20, 30, 40, 50}
+
+# remove(): 删除指定数据，如果数据不存在报错
+# s1.remove(10)
+# print(s1)  # {50, 20, 40, 30}
+# s1.remove(10)  # 报错 KeyError: 10
+# print(s1)
+
+# discard()： 删除指定数据，如果数据不存在不报错
+s1.discard(10)
+print(s1)  # {50, 20, 40, 30}
+s1.discard(10)
+print(s1)  # {50, 20, 40, 30}
+
+# pop()： 随机删除某个数据，并返回这个数据
+del_num = s1.pop()
+print(del_num)  # 50
+print(s1)  # {20, 40, 30}
+
+```
+
+
+
+##### 查找数据
+
+* in: 判断数据在集合序列
+* not in: 判断数据不在集合序列
+
+```python
+s1 = {10, 20, 30, 40, 50}
+
+# in 或 not in 判断数据是否存在
+print(10 in s1)
+print(10 not in s1)
+
+```
+
+![image-20210119172755024](python 入门.assets/image-20210119172755024.png)
+
+
+
+### 公共操作
+
+我们所学过的这些数据序列基本上都支持的操作
+
+#### 运算符
+
+| 运算符 |      描述      |      支持的容器类型      |
+| :----: | :------------: | :----------------------: |
+|   +    |      合并      |    字符串、列表、元组    |
+|   *    |      复制      |    字符串、列表、元组    |
+|   in   |  元素是否存在  | 字符串、列表、元组、字典 |
+| not in | 元素是否不存在 | 字符串、列表、元组、字典 |
+
+##### +
+
+```python
+str1 = 'aa'
+str2 = 'bb'
+
+list1 = [1, 2]
+list2 = [10, 20]
+
+t1 = (1, 2)
+t2 = (10, 20)
+
+dict1 = {'name': 'Python'}
+dict2 = {'age': 30}
+
+# +: 合并
+print(str1 + str2)
+print(list1 + list2)
+print(t1 + t2)
+print(dict1 + dict2)  # 报错：字典不支持合并运算
+
+
+```
+
+
+
+![image-20210119174814205](python 入门.assets/image-20210119174814205.png)
+
+
+
+##### *
+
+```python
+str1 = 'a'
+list1 = ['hello']
+t1 = ('world',)
+
+print(str1 * 5)
+# 打印10个'-'
+print('-' * 10)
+
+print(list1*5)
+
+print(t1 * 5)
+
+```
+
+![image-20210119180553963](python 入门.assets/image-20210119180553963.png)
+
+
+
+##### in/not in
+
+```python
+str1 = 'abcd'
+list1 = [10, 20, 30, 40]
+t1 = (100, 200, 300, 400)
+dict1 = {'name': 'Python', 'age': 30}
+
+# 字符a是否存在
+print('a' in str1)
+print('a' not in str1)
+
+# 判断数据10是否存在
+print(10 in list1)
+print(10 not in list1)
+
+# 判断100是否存在
+print(100 in t1)
+print(100 not in t1)
+
+# name 是否存在
+print('name' in list1)
+print('name' not in list1)
+print('name' in dict1.keys())
+print('name' in dict1.values())
+
+```
+
+![image-20210119181356136](python 入门.assets/image-20210119181356136.png)
+
+
+
+
+
+#### 公共方法
+
+#### 容器类型转换
+
+ 
 
 ## 函数
 
